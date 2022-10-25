@@ -30,7 +30,7 @@ public class FileHandler {
         return text.toString();
     }
 
-    public void createNewFileFromText(String path, String text) {
+    public void createFileFromText(String path, String text) {
         var file = new File(path);
         try {
             if (file.createNewFile()) {
