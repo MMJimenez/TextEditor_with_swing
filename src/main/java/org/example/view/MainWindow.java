@@ -6,6 +6,7 @@ package org.example.view;
  */
 
 import javax.swing.JOptionPane;
+import java.awt.*;
 
 /**
  *
@@ -145,7 +146,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void menuItemFontFormatActionPerformed(java.awt.event.ActionEvent evt) {
-
+        textPaneMain.setFont(new Font("Arial", Font.PLAIN, 20));
     }
 
     private void menuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
