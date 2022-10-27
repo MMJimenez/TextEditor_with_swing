@@ -5,18 +5,18 @@ import java.util.Map;
 
 public class FontFormat {
 
-    final static private String[] fontsNamesList = {"Arial", "Calibri", "Times New Roman", "Verdana", "Tahoma",
+    final static public String[] fontsNamesList = {"Arial", "Calibri", "Times New Roman", "Verdana", "Tahoma",
             "Courier New", "Georgia", "Impact", "Lucida Console", "Lucida Sans Unicode", "Palatino Linotype",
             "Trebuchet MS", "MS Sans Serif", "MS Serif", "Symbol", "Webdings", "Wingdings", "Wingdings 2", "Wingdings 3"};
 
-    final static private Map<String, Integer> fontStylesList = Map.of(
+    final static public Map<String, Integer> fontStylesList = Map.of(
             "Regular", Font.PLAIN,
             "Bold", Font.BOLD,
             "Italic", Font.ITALIC,
             "Bold Italic", Font.BOLD + Font.ITALIC
     );
 
-    final static private Integer[] fontSizesList = {8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72};
+    final static public Integer[] fontSizesList = {8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72};
 
     private String name = fontsNamesList[0];
     private Integer size = fontSizesList[2];

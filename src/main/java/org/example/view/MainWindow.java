@@ -6,6 +6,7 @@ package org.example.view;
  */
 
 import org.example.controller.FileHandler;
+import org.example.model.FontFormat;
 
 import javax.swing.JOptionPane;
 import java.awt.*;
@@ -332,12 +333,11 @@ public class MainWindow extends javax.swing.JFrame {
     public void showFontFormat() {
         //TODO implementar
         System.out.println("pulsed showFontFormat");
-        var fontDialog = new FontFormatDialog(this, true);
-        fontDialog.setVisible(true);
+        var selectedFont = new FontFormat();
+        var fontFormatDialog = new FontFormatDialog(this, true, selectedFont);
+        fontFormatDialog.setVisible(true);
 
-
-        //fontDialog.pack();
-
+        System.out.println(selectedFont.toString());
     }
 
 
