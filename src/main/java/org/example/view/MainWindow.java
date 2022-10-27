@@ -1,9 +1,6 @@
 package org.example.view;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 
 import org.example.controller.FileHandler;
 
@@ -15,11 +12,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.example.controller.FileHandler;
 
-/**
- *
- * @author admin
- */
+
 public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
@@ -172,18 +167,18 @@ public class MainWindow extends javax.swing.JFrame {
         
         if(selection == JFileChooser.APPROVE_OPTION){
             
-            File fichero = chooser.getSelectedFile();
+            File file = chooser.getSelectedFile();
             
-            FileHandler.savedFile = fichero;
+            FileHandler.savedFile = file;
             
-            try(FileReader fr = new FileReader(fichero)){
-                String cadena = "";
-                int valor = fr.read();
-                while(valor != -1){
-                    cadena+=(char)valor;
-                    valor=fr.read();
+            try(FileReader fr = new FileReader(file)){
+                String s = "";
+                int value = fr.read();
+                while(value != -1){
+                    s += (char)value;
+                    value=fr.read();
                 }
-                this.textPaneMain.setText(cadena);
+                this.textPaneMain.setText(s);
             }catch(IOException e){
                 e.printStackTrace();
             }            
@@ -197,38 +192,23 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void menuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
-        JFileChooser fc=new JFileChooser();
+        JFileChooser fc = new JFileChooser();
  
-        int seleccion=fc.showSaveDialog(this);
+        int selection = fc.showSaveDialog(this);
 
-        if(seleccion==JFileChooser.APPROVE_OPTION){
+        if(selection == JFileChooser.APPROVE_OPTION){
 
-            File fichero=fc.getSelectedFile();
-            FileHandler.savedFile = fichero;
+            File file = fc.getSelectedFile();
+            FileHandler.savedFile = file;
         }
     }
     //este es salir
     private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt){
         
-        if(FileHandler.savedFile == null){
-            
-            String message = """
-                         ¡No hay fichero seleccionado!
-                         Usa la opción guardar como antes de salir.    
-                         """;
-            String title = "ERROR";
-            JOptionPane.showMessageDialog(this, message, title,
-                    JOptionPane.ERROR_MESSAGE);
-            
-        }else{
-            try(FileWriter fw=new FileWriter(FileHandler.savedFile)){
-
-                fw.write(this.textPaneMain.getText());
-                System.exit(0);
-
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+        if(FileHandler.savedFile == null)            showErrorDialog();
+        else{
+            saveAllDatta(FileHandler.savedFile);
+            System.exit(0);
         }        
     }
 
@@ -238,47 +218,23 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {
         
-        if(FileHandler.savedFile == null){
-            
-            String message = """
-                         ¡No hay fichero seleccionado!
-                         Prueba la opción guardar como.    
-                         """;
-            String title = "ERROR";
-            JOptionPane.showMessageDialog(this, message, title,
-                    JOptionPane.ERROR_MESSAGE);            
-            
-        }else{
-            try(FileWriter fw=new FileWriter(FileHandler.savedFile)){
-
-                fw.write(this.textPaneMain.getText());
-
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }        
-        
+        if(FileHandler.savedFile == null)            showErrorDialog();
+        else                                         saveAllDatta(FileHandler.savedFile);
     }
     
     //este es el guardar como
     private void menuItemSaveWithActionPerformed(java.awt.event.ActionEvent evt){
         
-        JFileChooser fc=new JFileChooser();
+        JFileChooser fc = new JFileChooser();
  
-        int seleccion=fc.showSaveDialog(this);
+        int selection = fc.showSaveDialog(this);
 
-        if(seleccion==JFileChooser.APPROVE_OPTION){
+        if(selection == JFileChooser.APPROVE_OPTION){
 
-            File fichero=fc.getSelectedFile();
-            FileHandler.savedFile = fichero;
+            File file = fc.getSelectedFile();
+            FileHandler.savedFile = file;
 
-            try(FileWriter fw=new FileWriter(fichero)){
-
-                fw.write(this.textPaneMain.getText());
-
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            saveAllDatta(file);            
         }
     }
 
@@ -328,6 +284,26 @@ public class MainWindow extends javax.swing.JFrame {
         String title = "Acerca de ...";
         JOptionPane.showMessageDialog(this, message, title,
                 JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public void showErrorDialog(){
+        String message = """
+                         ¡No hay fichero seleccionado!
+                         Prueba la opción guardar como.    
+                         """;
+            String title = "ERROR";
+            JOptionPane.showMessageDialog(this, message, title,
+                    JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public void saveAllDatta(File file) {
+        try(FileWriter fw = new FileWriter(file)){
+
+            fw.write(this.textPaneMain.getText());
+
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
     
     public void showFontFormat() {
