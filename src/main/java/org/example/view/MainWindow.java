@@ -7,7 +7,12 @@ package org.example.view;
 
 import javax.swing.JOptionPane;
 import java.awt.*;
-import java.text.Format;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -112,9 +117,19 @@ public class MainWindow extends javax.swing.JFrame {
         menuFile.add(menuItemSave);
 
         menuItemSaveWith.setText("Guardar como ...");
+        menuItemSaveWith.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSaveWithActionPerformed(evt);
+            }
+        });
         menuFile.add(menuItemSaveWith);
 
         menuItemExit.setText("Salir");
+        menuItemExit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExitActionPerformed(evt);
+            }
+        });
         menuFile.add(menuItemExit);
 
         jMenuBar1.add(menuFile);
@@ -145,7 +160,32 @@ public class MainWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void menuItemOpenActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+
+        var filtro = new FileNameExtensionFilter("*.TXT", "txt");
+        
+        chooser.setFileFilter(filtro);
+        
+        int selection = chooser.showOpenDialog(this);
+        
+        if(selection == JFileChooser.APPROVE_OPTION){
+            
+            File fichero = chooser.getSelectedFile();
+            
+            FileController.savedFile = fichero;
+            
+            try(FileReader fr = new FileReader(fichero)){
+                String cadena = "";
+                int valor = fr.read();
+                while(valor != -1){
+                    cadena+=(char)valor;
+                    valor=fr.read();
+                }
+                this.textPaneMain.setText(cadena);
+            }catch(IOException e){
+                e.printStackTrace();
+            }            
+        }
     }
 
     private void menuItemFontFormatActionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,7 +195,39 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void menuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
+        JFileChooser fc=new JFileChooser();
+ 
+        int seleccion=fc.showSaveDialog(this);
 
+        if(seleccion==JFileChooser.APPROVE_OPTION){
+
+            File fichero=fc.getSelectedFile();
+            FileController.savedFile = fichero;
+        }
+    }
+    //este es salir
+    private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt){
+        
+        if(FileController.savedFile == null){
+            
+            String message = """
+                         ¡No hay fichero seleccionado!
+                         Usa la opción guardar como antes de salir.    
+                         """;
+            String title = "ERROR";
+            JOptionPane.showMessageDialog(this, message, title,
+                    JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            try(FileWriter fw=new FileWriter(FileController.savedFile)){
+
+                fw.write(this.textPaneMain.getText());
+                System.exit(0);
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }        
     }
 
     private void menuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +235,49 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        
+        if(FileController.savedFile == null){
+            
+            String message = """
+                         ¡No hay fichero seleccionado!
+                         Prueba la opción guardar como.    
+                         """;
+            String title = "ERROR";
+            JOptionPane.showMessageDialog(this, message, title,
+                    JOptionPane.ERROR_MESSAGE);            
+            
+        }else{
+            try(FileWriter fw=new FileWriter(FileController.savedFile)){
+
+                fw.write(this.textPaneMain.getText());
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }        
+        
+    }
+    
+    //este es el guardar como
+    private void menuItemSaveWithActionPerformed(java.awt.event.ActionEvent evt){
+        
+        JFileChooser fc=new JFileChooser();
+ 
+        int seleccion=fc.showSaveDialog(this);
+
+        if(seleccion==JFileChooser.APPROVE_OPTION){
+
+            File fichero=fc.getSelectedFile();
+            FileController.savedFile = fichero;
+
+            try(FileWriter fw=new FileWriter(fichero)){
+
+                fw.write(this.textPaneMain.getText());
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
     /**
