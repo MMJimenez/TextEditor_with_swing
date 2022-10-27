@@ -6,7 +6,6 @@ package org.example.view;
 
 import org.example.model.FontFormat;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -20,7 +19,6 @@ import javax.swing.KeyStroke;
  * @author admin
  */
 public class FontFormatDialog extends javax.swing.JDialog {
-    private static FontFormat fontFormat;
 
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -34,7 +32,7 @@ public class FontFormatDialog extends javax.swing.JDialog {
     /**
      * Creates new form FontFormatDialog
      */
-    public FontFormatDialog(java.awt.Frame parent, boolean modal, FontFormat fontFormat) {
+    public FontFormatDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -187,9 +185,18 @@ public class FontFormatDialog extends javax.swing.JDialog {
         getRootPane().setDefaultButton(btnFontDialogOk);
 
         pack();
+
+        fillFontNamesList();
+        fillFontStylesList();
+        fillFontSizesList();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFontDialogOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFontDialogOkActionPerformed
+    // TODO add your handling code here:
+    //        FontFormat.name = FontFormat.fontsNamesList[0];
+    //        FontFormat.style = FontFormat.fontStylesList.get("Regular");
+    //        FontFormat.size = FontFormat.fontSizesList[0];
+
         System.out.print("Pulsed btnFontDialogOk");
         doClose(RET_OK);
     }//GEN-LAST:event_btnFontDialogOkActionPerformed
@@ -203,6 +210,7 @@ public class FontFormatDialog extends javax.swing.JDialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
+        //todo Boton close
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
 
@@ -245,12 +253,9 @@ public class FontFormatDialog extends javax.swing.JDialog {
 
         /* Create and display the dialog */
 
-        fontFormat.setName(FontFormat.fontsNamesList[0]);
-        fontFormat.setStyle(FontFormat.fontStylesList.get("Regular"));
-        fontFormat.setSize(FontFormat.fontSizesList[0]);
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FontFormatDialog dialog = new FontFormatDialog(new javax.swing.JFrame(), true, fontFormat);
+                FontFormatDialog dialog = new FontFormatDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -260,6 +265,26 @@ public class FontFormatDialog extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+
+    private void fillFontNamesList() {
+        boxFontName.removeAllItems();
+        for (String fontName : FontFormat.fontNamesList) {
+            boxFontName.addItem(fontName);
+        }
+    }
+    private void fillFontStylesList() {
+        boxFontStyle.removeAllItems();
+        for (String fontStyle : FontFormat.fontStylesList.keySet()) {
+            boxFontStyle.addItem(fontStyle);
+        }
+    }
+
+    private void fillFontSizesList() {
+        boxFontSize.removeAllItems();
+        for (Integer fontSizes : FontFormat.fontSizesList) {
+            boxFontSize.addItem(fontSizes.toString());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -25,6 +25,16 @@ public class MainWindow extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
 
+    public static FontFormat fontFormatMainWindow;
+
+    public FontFormat getFontFormatMainWindow() {
+        return fontFormatMainWindow;
+    }
+
+    public void setFontFormatMainWindow(FontFormat fontFormatMainWindow) {
+        this.fontFormatMainWindow = fontFormatMainWindow;
+    }
+
     public MainWindow() {
         initComponents();
     }
@@ -331,13 +341,14 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void showFontFormat() {
-        //TODO implementar
         System.out.println("pulsed showFontFormat");
-        var selectedFont = new FontFormat();
-        var fontFormatDialog = new FontFormatDialog(this, true, selectedFont);
+        var fontFormatDialog = new FontFormatDialog(this, true);
         fontFormatDialog.setVisible(true);
 
-        System.out.println(selectedFont.toString());
+        System.out.println(FontFormat.name);
+        System.out.println(FontFormat.style);
+        System.out.println(FontFormat.size);
+        textPaneMain.setFont(new Font(FontFormat.name, FontFormat.style, FontFormat.size));
     }
 
 
