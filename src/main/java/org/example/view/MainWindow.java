@@ -7,6 +7,7 @@ package org.example.view;
 
 import javax.swing.JOptionPane;
 import java.awt.*;
+import java.text.Format;
 
 /**
  *
@@ -48,6 +49,8 @@ public class MainWindow extends javax.swing.JFrame {
         menuOptions = new javax.swing.JMenu();
         menuItemFontFormat = new javax.swing.JMenuItem();
         menuItemAbout = new javax.swing.JMenuItem();
+
+        setTitle("Editor de texto");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +150,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuItemFontFormatActionPerformed(java.awt.event.ActionEvent evt) {
         textPaneMain.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        //showFontFormat();
     }
 
     private void menuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,6 +212,10 @@ public class MainWindow extends javax.swing.JFrame {
         String title = "Acerca de ...";
         JOptionPane.showMessageDialog(this, message, title,
                 JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    public void showFontFormat() {
+        
     }
 
 
