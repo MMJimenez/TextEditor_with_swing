@@ -5,6 +5,8 @@ package org.example.view;
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
+import org.example.controller.FileHandler;
+
 import javax.swing.JOptionPane;
 import java.awt.*;
 import java.io.File;
@@ -172,7 +174,7 @@ public class MainWindow extends javax.swing.JFrame {
             
             File fichero = chooser.getSelectedFile();
             
-            FileController.savedFile = fichero;
+            FileHandler.savedFile = fichero;
             
             try(FileReader fr = new FileReader(fichero)){
                 String cadena = "";
@@ -202,13 +204,13 @@ public class MainWindow extends javax.swing.JFrame {
         if(seleccion==JFileChooser.APPROVE_OPTION){
 
             File fichero=fc.getSelectedFile();
-            FileController.savedFile = fichero;
+            FileHandler.savedFile = fichero;
         }
     }
     //este es salir
     private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt){
         
-        if(FileController.savedFile == null){
+        if(FileHandler.savedFile == null){
             
             String message = """
                          ¡No hay fichero seleccionado!
@@ -219,7 +221,7 @@ public class MainWindow extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
             
         }else{
-            try(FileWriter fw=new FileWriter(FileController.savedFile)){
+            try(FileWriter fw=new FileWriter(FileHandler.savedFile)){
 
                 fw.write(this.textPaneMain.getText());
                 System.exit(0);
@@ -236,7 +238,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {
         
-        if(FileController.savedFile == null){
+        if(FileHandler.savedFile == null){
             
             String message = """
                          ¡No hay fichero seleccionado!
@@ -247,7 +249,7 @@ public class MainWindow extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);            
             
         }else{
-            try(FileWriter fw=new FileWriter(FileController.savedFile)){
+            try(FileWriter fw=new FileWriter(FileHandler.savedFile)){
 
                 fw.write(this.textPaneMain.getText());
 
@@ -268,7 +270,7 @@ public class MainWindow extends javax.swing.JFrame {
         if(seleccion==JFileChooser.APPROVE_OPTION){
 
             File fichero=fc.getSelectedFile();
-            FileController.savedFile = fichero;
+            FileHandler.savedFile = fichero;
 
             try(FileWriter fw=new FileWriter(fichero)){
 

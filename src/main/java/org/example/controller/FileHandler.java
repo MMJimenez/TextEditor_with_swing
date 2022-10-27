@@ -4,6 +4,8 @@ import java.io.*;
 
 public class FileHandler {
 
+    public static File savedFile;
+
     private Boolean isFilePath(String filePath) {
         var file = new File(filePath);
         return file.exists() && !file.isDirectory();
