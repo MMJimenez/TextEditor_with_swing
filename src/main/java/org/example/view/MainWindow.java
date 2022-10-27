@@ -17,7 +17,6 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- *
  * @author admin
  */
 public class MainWindow extends javax.swing.JFrame {
@@ -165,63 +164,63 @@ public class MainWindow extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
 
         var filtro = new FileNameExtensionFilter("*.TXT", "txt");
-        
+
         chooser.setFileFilter(filtro);
-        
+
         int selection = chooser.showOpenDialog(this);
-        
-        if(selection == JFileChooser.APPROVE_OPTION){
-            
+
+        if (selection == JFileChooser.APPROVE_OPTION) {
+
             File fichero = chooser.getSelectedFile();
-            
+
             FileHandler.savedFile = fichero;
-            
-            try(FileReader fr = new FileReader(fichero)){
+
+            try (FileReader fr = new FileReader(fichero)) {
                 String cadena = "";
                 int valor = fr.read();
-                while(valor != -1){
-                    cadena+=(char)valor;
-                    valor=fr.read();
+                while (valor != -1) {
+                    cadena += (char) valor;
+                    valor = fr.read();
                 }
                 this.textPaneMain.setText(cadena);
-            }catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
-            }            
+            }
         }
     }
 
     private void menuItemFontFormatActionPerformed(java.awt.event.ActionEvent evt) {
-        textPaneMain.setFont(new Font("Arial", Font.PLAIN, 20));
-
-        //showFontFormat();
+        //textPaneMain.setFont(new Font("Arial", Font.PLAIN, 20));
+        showFontFormat();
     }
 
     private void menuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
-        JFileChooser fc=new JFileChooser();
- 
-        int seleccion=fc.showSaveDialog(this);
+        JFileChooser fc = new JFileChooser();
 
-        if(seleccion==JFileChooser.APPROVE_OPTION){
+        int seleccion = fc.showSaveDialog(this);
 
-            File fichero=fc.getSelectedFile();
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            File fichero = fc.getSelectedFile();
             FileHandler.savedFile = fichero;
         }
     }
+
     //este es salir
-    private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt){
-        
-        if(FileHandler.savedFile == null){
-            
+    private void menuItemExitActionPerformed(java.awt.event.ActionEvent evt) {
+
+        if (FileHandler.savedFile == null) {
+
             String message = """
-                         ¡No hay fichero seleccionado!
-                         Usa la opción guardar como antes de salir.    
-                         """;
+                    ¡No hay fichero seleccionado!
+                    Usa la opción guardar como antes de salir.    
+                    """;
             String title = "ERROR";
             JOptionPane.showMessageDialog(this, message, title,
                     JOptionPane.ERROR_MESSAGE);
-            
-        }else{
-            try(FileWriter fw=new FileWriter(FileHandler.savedFile)){
+
+        } else {
+            try (FileWriter fw = new FileWriter(FileHandler.savedFile)) {
 
                 fw.write(this.textPaneMain.getText());
                 System.exit(0);
@@ -229,7 +228,7 @@ public class MainWindow extends javax.swing.JFrame {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        }        
+        }
     }
 
     private void menuItemAboutActionPerformed(java.awt.event.ActionEvent evt) {
@@ -237,42 +236,42 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void menuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {
-        
-        if(FileHandler.savedFile == null){
-            
+
+        if (FileHandler.savedFile == null) {
+
             String message = """
-                         ¡No hay fichero seleccionado!
-                         Prueba la opción guardar como.    
-                         """;
+                    ¡No hay fichero seleccionado!
+                    Prueba la opción guardar como.    
+                    """;
             String title = "ERROR";
             JOptionPane.showMessageDialog(this, message, title,
-                    JOptionPane.ERROR_MESSAGE);            
-            
-        }else{
-            try(FileWriter fw=new FileWriter(FileHandler.savedFile)){
+                    JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            try (FileWriter fw = new FileWriter(FileHandler.savedFile)) {
 
                 fw.write(this.textPaneMain.getText());
 
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-        }        
-        
+        }
+
     }
-    
+
     //este es el guardar como
-    private void menuItemSaveWithActionPerformed(java.awt.event.ActionEvent evt){
-        
-        JFileChooser fc=new JFileChooser();
- 
-        int seleccion=fc.showSaveDialog(this);
+    private void menuItemSaveWithActionPerformed(java.awt.event.ActionEvent evt) {
 
-        if(seleccion==JFileChooser.APPROVE_OPTION){
+        JFileChooser fc = new JFileChooser();
 
-            File fichero=fc.getSelectedFile();
+        int seleccion = fc.showSaveDialog(this);
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            File fichero = fc.getSelectedFile();
             FileHandler.savedFile = fichero;
 
-            try(FileWriter fw=new FileWriter(fichero)){
+            try (FileWriter fw = new FileWriter(fichero)) {
 
                 fw.write(this.textPaneMain.getText());
 
@@ -319,21 +318,27 @@ public class MainWindow extends javax.swing.JFrame {
 
     public void showAboutDialog() {
         String message = """
-                         Autores:
-                         Pablo Jim\u00e9nez Juarez
-                         Miguel Mu\u00f1oz Jim\u00e9nez
-                         Tecnologías usadas:
-                         Java y swing
-                         """;
+                Autores:
+                Pablo Jim\u00e9nez Juarez
+                Miguel Mu\u00f1oz Jim\u00e9nez
+                Tecnologías usadas:
+                Java y swing
+                """;
         String title = "Acerca de ...";
         JOptionPane.showMessageDialog(this, message, title,
                 JOptionPane.PLAIN_MESSAGE);
     }
-    
-    public void showFontFormat() {
-        
-    }
 
+    public void showFontFormat() {
+        //TODO implementar
+        System.out.println("pulsed showFontFormat");
+        var fontDialog = new FontFormatDialog(this, true);
+        fontDialog.setVisible(true);
+
+
+        //fontDialog.pack();
+
+    }
 
 
     // Variables declaration - do not modify
