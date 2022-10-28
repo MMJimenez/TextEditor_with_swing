@@ -201,7 +201,6 @@ public class FontFormatDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnFontDialogOkActionPerformed
 
     private void btnFontDialogCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFontDialogCancelActionPerformed
-        System.out.print("Pulsed btnFontDialogCancel");
         doClose(RET_CANCEL);
     }//GEN-LAST:event_btnFontDialogCancelActionPerformed
 
