@@ -276,6 +276,7 @@ public class FontFormatDialog extends javax.swing.JDialog {
         }
         boxFontName.setSelectedIndex(index);
     }
+
     private void fillFontStylesList() {
         boxFontStyle.removeAllItems();
         int index = 0;

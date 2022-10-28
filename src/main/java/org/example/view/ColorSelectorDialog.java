@@ -4,6 +4,8 @@
  */
 package org.example.view;
 
+import org.example.model.FontFormat;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -18,6 +20,7 @@ import javax.swing.KeyStroke;
  */
 public class ColorSelectorDialog extends javax.swing.JDialog {
 
+    private static boolean isBtnColorForegroundSelected = true;
     /**
      * A return status code - returned if Cancel button has been pressed
      */
@@ -148,11 +151,42 @@ public class ColorSelectorDialog extends javax.swing.JDialog {
         getRootPane().setDefaultButton(okButton);
 
         pack();
+
+
+
+
     }// </editor-fold>//GEN-END:initComponents
 
+
+    private void initMoreComponents() {
+        //btnForeColor.setMnemonic(KeyEvent.VK_E);
+        btnForeColor.setActionCommand("enable"); //b3
+        btnForeColor.setEnabled(false);
+        btnForeColor.setBackground(FontFormat.foregroundColor);
+
+        btnBackColor.setActionCommand("disable"); //b1
+        btnBackColor.setBackground(FontFormat.backgroundColor);
+
+        btnForeColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectColorToModifyActionPerformed(evt);
+            }
+        });
+
+        btnBackColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectColorToModifyActionPerformed(evt);
+            }
+        });
+    }
+
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        System.out.println(colorChooser.getColor().toString());
-        
+        if (isBtnColorForegroundSelected) {
+            setForeGroundColor();
+        } else {
+            setBackGroundColor();
+        }
+
         doClose(RET_OK);
     }//GEN-LAST:event_okButtonActionPerformed
 
@@ -160,8 +194,35 @@ public class ColorSelectorDialog extends javax.swing.JDialog {
         doClose(RET_CANCEL);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+
+    private void setForeGroundColor(){
+        FontFormat.foregroundColor = colorChooser.getColor();
+    }
+
+    private void setBackGroundColor(){
+        FontFormat.backgroundColor = colorChooser.getColor();
+    }
+
+
+    private void selectColorToModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        if (isBtnColorForegroundSelected) {
+            isBtnColorForegroundSelected = false;
+            btnBackColor.setEnabled(false);
+            btnForeColor.setEnabled(true);
+            setForeGroundColor();
+            btnForeColor.setBackground(FontFormat.foregroundColor);
+            btnForeColor.setForeground(FontFormat.foregroundColor);
+        } else {
+            isBtnColorForegroundSelected = true;
+            btnBackColor.setEnabled(true);
+            btnForeColor.setEnabled(false);
+            setBackGroundColor();
+            btnBackColor.setBackground(FontFormat.backgroundColor);
+            btnBackColor.setForeground(FontFormat.foregroundColor);
+        }
+    }//G
     /**
-     * Closes the dialog
+     * Closes the dialo
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
         doClose(RET_CANCEL);

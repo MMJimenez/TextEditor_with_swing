@@ -30,5 +30,7 @@ public class FontFormat {
         name = fontNamesList[0];
         size = fontSizesList[6];
         style = fontStylesList.get("Regular");
+        foregroundColor = Color.BLACK;
+        backgroundColor = Color.WHITE;
     }
 }

@@ -361,9 +361,8 @@ public class MainWindow extends javax.swing.JFrame {
         SimpleAttributeSet set = new SimpleAttributeSet();
         textPaneMain.setCharacterAttributes(set, true);
 
-        StyleConstants.setForeground(set, new Color(255,51,51));
-
-        StyleConstants.setBackground(set, Color.blue);
+        StyleConstants.setForeground(set, FontFormat.foregroundColor);
+        StyleConstants.setBackground(set, FontFormat.backgroundColor);
 
         StyleConstants.setFontFamily(set, FontFormat.name);
         StyleConstants.setFontSize(set, FontFormat.size);
