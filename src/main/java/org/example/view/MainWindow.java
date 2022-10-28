@@ -69,23 +69,23 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
-        txtFont.setText("Fuente: ");
-        txtFont.setToolTipText("");
+        //txtFont.setText("Fuente: ");
+        //txtFont.setToolTipText("");
         txtFont.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 7, 0, 0));
         jPanel1.add(txtFont);
 
-        lblFontAndSize.setText("Helvetica (15)");
+        //lblFontAndSize.setText("Helvetica (15)");
         lblFontAndSize.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 7));
         jPanel1.add(lblFontAndSize);
 
-        txtMark.setText("|");
+        //txtMark.setText("|");
         jPanel1.add(txtMark);
 
-        txtCount.setText("Carácteres: ");
+        //txtCount.setText("Carácteres: ");
         txtCount.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 7, 0, 0));
         jPanel1.add(txtCount);
 
-        lblCountChars.setText("100");
+        //lblCountChars.setText("100");
         lblCountChars.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 7));
         jPanel1.add(lblCountChars);
 
