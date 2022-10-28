@@ -214,6 +214,8 @@ public class FontFormatDialog extends javax.swing.JDialog {
 
     private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
         // TODO add your handling code here COLOR:
+        var colorSelectorDialog = new ColorSelectorDialog(null, true);
+        colorSelectorDialog.setVisible(true);
     }//GEN-LAST:event_btnChooseActionPerformed
     
     private void doClose(int retStatus) {

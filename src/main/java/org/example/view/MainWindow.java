@@ -9,6 +9,7 @@ import org.example.controller.FileHandler;
 import org.example.model.FontFormat;
 
 import javax.swing.JOptionPane;
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -29,10 +30,6 @@ public class MainWindow extends javax.swing.JFrame {
 
     public MainWindow() {
         initComponents();
-        insertStyleInText();
-        //textPaneMain.setFont(new Font(FontFormat.name, FontFormat.style, FontFormat.size));
-//        SimpleAttributeSet set = new SimpleAttributeSet();
-//        StyleConstants.setFontFamily(set, FontFormat.name);
     }
 
     /**
@@ -337,7 +334,6 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void showFontFormat() {
-        System.out.println("pulsed showFontFormat");
         var fontFormatDialog = new FontFormatDialog(this, true);
         fontFormatDialog.setVisible(true);
         insertStyleInText();
@@ -364,6 +360,10 @@ public class MainWindow extends javax.swing.JFrame {
     public SimpleAttributeSet changeSimpleAttributeSet() {
         SimpleAttributeSet set = new SimpleAttributeSet();
         textPaneMain.setCharacterAttributes(set, true);
+
+        StyleConstants.setForeground(set, new Color(255,51,51));
+
+        StyleConstants.setBackground(set, Color.blue);
 
         StyleConstants.setFontFamily(set, FontFormat.name);
         StyleConstants.setFontSize(set, FontFormat.size);

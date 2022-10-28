@@ -1,5 +1,7 @@
 package org.example.model;
 
+import javax.swing.text.StyleConstants;
+import java.awt.*;
 import java.util.Map;
 
 public class FontFormat {
@@ -20,6 +22,9 @@ public class FontFormat {
     public static String name;
     public static Integer size;
     public static Integer style;
+
+    public static Color foregroundColor;
+    public static Color backgroundColor;
 
     static {
         name = fontNamesList[0];
