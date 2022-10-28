@@ -8,6 +8,7 @@ import org.example.model.FontFormat;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -35,6 +36,11 @@ public class FontFormatDialog extends javax.swing.JDialog {
     public FontFormatDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        //fill the JComboBox lists
+        fillFontNamesList();
+        fillFontStylesList();
+        fillFontSizesList();
 
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
@@ -127,23 +133,22 @@ public class FontFormatDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(69, 69, 69)
-                            .addComponent(boxFontName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2))
-                            .addGap(80, 80, 80)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnChoose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(boxFontStyle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(boxFontSize, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(boxFontSize, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxFontStyle, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boxFontName, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnChoose, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE))
+                        .addGap(0, 40, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(40, 40, 40))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnFontDialogOk, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,10 +162,10 @@ public class FontFormatDialog extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel5)
                 .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(boxFontName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -175,7 +180,7 @@ public class FontFormatDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(btnChoose))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnFontDialogCancel)
                     .addComponent(btnFontDialogOk))
@@ -185,19 +190,13 @@ public class FontFormatDialog extends javax.swing.JDialog {
         getRootPane().setDefaultButton(btnFontDialogOk);
 
         pack();
-
-        fillFontNamesList();
-        fillFontStylesList();
-        fillFontSizesList();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFontDialogOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFontDialogOkActionPerformed
-    // TODO add your handling code here:
-    //        FontFormat.name = FontFormat.fontsNamesList[0];
-    //        FontFormat.style = FontFormat.fontStylesList.get("Regular");
-    //        FontFormat.size = FontFormat.fontSizesList[0];
+        FontFormat.name = Objects.requireNonNull(boxFontName.getSelectedItem()).toString();
+        FontFormat.style = FontFormat.fontStylesList.get(Objects.requireNonNull(boxFontStyle.getSelectedItem()).toString());
+        FontFormat.size = Integer.valueOf(Objects.requireNonNull(boxFontSize.getSelectedItem()).toString());
 
-        System.out.print("Pulsed btnFontDialogOk");
         doClose(RET_OK);
     }//GEN-LAST:event_btnFontDialogOkActionPerformed
 
@@ -210,12 +209,11 @@ public class FontFormatDialog extends javax.swing.JDialog {
      * Closes the dialog
      */
     private void closeDialog(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_closeDialog
-        //todo Boton close
         doClose(RET_CANCEL);
     }//GEN-LAST:event_closeDialog
 
     private void btnChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChooseActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here COLOR:
     }//GEN-LAST:event_btnChooseActionPerformed
     
     private void doClose(int retStatus) {
@@ -269,22 +267,33 @@ public class FontFormatDialog extends javax.swing.JDialog {
 
     private void fillFontNamesList() {
         boxFontName.removeAllItems();
-        for (String fontName : FontFormat.fontNamesList) {
-            boxFontName.addItem(fontName);
+        int index = 0;
+        for (int i = 0; i < FontFormat.fontNamesList.length; i++) {
+            if (FontFormat.name.equals(FontFormat.fontNamesList[i])) index = i;
+            boxFontName.addItem(FontFormat.fontNamesList[i]);
         }
+        boxFontName.setSelectedIndex(index);
     }
     private void fillFontStylesList() {
         boxFontStyle.removeAllItems();
+        int index = 0;
+        int count = 0;
         for (String fontStyle : FontFormat.fontStylesList.keySet()) {
+            if (FontFormat.fontStylesList.get(fontStyle) == FontFormat.style) index = count;
             boxFontStyle.addItem(fontStyle);
+            count++;
         }
+        boxFontStyle.setSelectedIndex(index);
     }
 
     private void fillFontSizesList() {
         boxFontSize.removeAllItems();
-        for (Integer fontSizes : FontFormat.fontSizesList) {
-            boxFontSize.addItem(fontSizes.toString());
+        int index = 0;
+        for (int i = 0; i < FontFormat.fontSizesList.length; i++) {
+            if (FontFormat.size == FontFormat.fontSizesList[i]) index = i;
+            boxFontSize.addItem(String.valueOf(FontFormat.fontSizesList[i]));
         }
+        boxFontSize.setSelectedIndex(index);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

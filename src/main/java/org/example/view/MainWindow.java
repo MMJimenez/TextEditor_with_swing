@@ -9,13 +9,13 @@ import org.example.controller.FileHandler;
 import org.example.model.FontFormat;
 
 import javax.swing.JOptionPane;
-import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.*;
 
 /**
  * @author admin
@@ -27,16 +27,12 @@ public class MainWindow extends javax.swing.JFrame {
 
     public static FontFormat fontFormatMainWindow;
 
-    public FontFormat getFontFormatMainWindow() {
-        return fontFormatMainWindow;
-    }
-
-    public void setFontFormatMainWindow(FontFormat fontFormatMainWindow) {
-        this.fontFormatMainWindow = fontFormatMainWindow;
-    }
-
     public MainWindow() {
         initComponents();
+        insertStyleInText();
+        //textPaneMain.setFont(new Font(FontFormat.name, FontFormat.style, FontFormat.size));
+//        SimpleAttributeSet set = new SimpleAttributeSet();
+//        StyleConstants.setFontFamily(set, FontFormat.name);
     }
 
     /**
@@ -344,13 +340,52 @@ public class MainWindow extends javax.swing.JFrame {
         System.out.println("pulsed showFontFormat");
         var fontFormatDialog = new FontFormatDialog(this, true);
         fontFormatDialog.setVisible(true);
-
-        System.out.println(FontFormat.name);
-        System.out.println(FontFormat.style);
-        System.out.println(FontFormat.size);
-        textPaneMain.setFont(new Font(FontFormat.name, FontFormat.style, FontFormat.size));
+        insertStyleInText();
     }
 
+    public int getPositionCaret() {
+        Caret caret = textPaneMain.getCaret();
+        return caret.getDot();
+    }
+
+    public void insertStyleInText() {
+        SimpleAttributeSet set = changeSimpleAttributeSet();
+        Document doc = textPaneMain.getStyledDocument();
+
+        String textToInsert = "\u202C";
+
+        try {
+            doc.insertString(getPositionCaret(), textToInsert, set);
+        } catch (BadLocationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public SimpleAttributeSet changeSimpleAttributeSet() {
+        SimpleAttributeSet set = new SimpleAttributeSet();
+        textPaneMain.setCharacterAttributes(set, true);
+
+        StyleConstants.setFontFamily(set, FontFormat.name);
+        StyleConstants.setFontSize(set, FontFormat.size);
+
+        switch (FontFormat.style) {
+            case 1:
+                StyleConstants.setBold(set, true);
+                break;
+            case 2:
+                StyleConstants.setItalic(set, true);
+                break;
+            case 3:
+                StyleConstants.setBold(set, true);
+                StyleConstants.setItalic(set, true);
+                break;
+            default:
+                StyleConstants.setBold(set, false);
+                StyleConstants.setItalic(set, false);
+                break;
+        }
+        return set;
+    }
 
     // Variables declaration - do not modify
     private javax.swing.JMenuBar jMenuBar1;

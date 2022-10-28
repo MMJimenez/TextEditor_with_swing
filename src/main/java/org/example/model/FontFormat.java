@@ -5,10 +5,8 @@ import java.util.Map;
 public class FontFormat {
 
      static public String[] fontNamesList = {"Arial", "Calibri", "Times New Roman", "Verdana", "Tahoma",
-            "Courier New", "Georgia", "Impact", "Lucida Console", "Lucida Sans Unicode", "Palatino Linotype",
-            "Trebuchet MS", "MS Sans Serif", "MS Serif", "Symbol", "Webdings", "Wingdings", "Wingdings 2", "Wingdings 3"};
-
-
+            "Courier New", "Georgia", "Impact", "Lucida Console", "Palatino Linotype",
+            "Trebuchet MS", "MS Sans Serif", "MS Serif", "Symbol"};
 
     final static public Map<String, Integer> fontStylesList = Map.of(
             "Regular", 0,
@@ -23,4 +21,9 @@ public class FontFormat {
     public static Integer size;
     public static Integer style;
 
+    static {
+        name = fontNamesList[0];
+        size = fontSizesList[6];
+        style = fontStylesList.get("Regular");
+    }
 }
